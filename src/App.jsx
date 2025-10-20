@@ -5,7 +5,8 @@ import Forecast from './components/Forecast';
 import WeatherChart from './components/WeatherChart';
 import './App.css';
 
-const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+// API Key from environment variable or fallback to hardcoded key for deployment
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '93279420fac1866de9d3ccecd3d664f1';
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 function App() {
