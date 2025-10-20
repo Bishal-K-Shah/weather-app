@@ -7,7 +7,7 @@ export default defineConfig({
   // Update base to your repository name for GitHub Pages
   // e.g., if your repo is https://github.com/username/weather-dashboard
   // then base should be '/weather-dashboard/'
-  base: process.env.NODE_ENV === 'production' ? '/weather-dashboard/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/weather-app/' : '/',
   server: {
     port: 3000,
   },
