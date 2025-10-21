@@ -81,9 +81,14 @@ body {
   justify-content: center;
 }
 
-.search-input {
+.search-wrapper {
+  position: relative;
   flex: 1;
   min-width: 250px;
+}
+
+.search-input {
+  width: 100%;
   padding: 14px 20px;
   font-size: 1rem;
   border: none;
@@ -97,6 +102,70 @@ body {
   outline: none;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
+}
+
+/* Autocomplete Suggestions */
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.suggestion-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+}
+
+.suggestion-item:first-child {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.suggestion-name {
+  font-weight: 600;
+}
+
+.suggestion-state,
+.suggestion-country {
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
 
 .search-button,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
 import WeatherChart from './components/WeatherChart';
+import SearchBar from './components/SearchBar';
 import './App.css';
 
 // API Key from environment variable only (secure approach)
@@ -10,7 +11,6 @@ const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 function App() {
-  const [city, setCity] = useState('');
   const [searchCity, setSearchCity] = useState('London');
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
@@ -82,9 +82,8 @@ function App() {
     }
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    fetchWeather(city);
+  const handleSearch = (cityName) => {
+    fetchWeather(cityName);
   };
 
   const handleUseLocation = () => {
@@ -110,26 +109,7 @@ function App() {
             <span className="icon">🌤️</span>
             Weather Dashboard
           </h1>
-          <form className="search-form" onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Enter city name..."
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <button type="submit" className="search-button">
-              <span>🔍</span> Search
-            </button>
-            <button 
-              type="button" 
-              className="location-button" 
-              onClick={handleUseLocation}
-              title="Use current location"
-            >
-              <span>📍</span> My Location
-            </button>
-          </form>
+          <SearchBar onSearch={handleSearch} onUseLocation={handleUseLocation} />
         </header>
 
         {error && (
