@@ -5,8 +5,8 @@ import Forecast from './components/Forecast';
 import WeatherChart from './components/WeatherChart';
 import './App.css';
 
-// API Key from environment variable or fallback to hardcoded key for deployment
-const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '93279420fac1866de9d3ccecd3d664f1';
+// API Key from environment variable only (secure approach)
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 function App() {
@@ -18,6 +18,14 @@ function App() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // Check if API key is configured
+    if (!API_KEY) {
+      setError('⚠️ API key not configured. Please add VITE_OPENWEATHER_API_KEY to your .env file.');
+      setLoading(false);
+      return;
+    }
+
+    // Try to get user's location on mount
     // Try to get user's location on mount
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

@@ -16,99 +16,6 @@ A beautiful, responsive weather application built with React, Vite, Chart.js, an
 - **⚡ Fast Performance**: Built with Vite for lightning-fast development and builds
 - **🎨 Real-time Data**: Live weather updates from OpenWeather API
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn package manager
-- OpenWeather API key (included in `.env` file)
-- Git and GitHub account (for deployment)
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/weather-dashboard.git
-   cd weather-dashboard
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser:**
-   Navigate to `http://localhost:3000`
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-The optimized build will be in the `dist` folder.
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-## 🚀 Deploy to GitHub Pages
-
-This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
-
-### Initial Setup
-
-1. **Create a new GitHub repository** named `weather-dashboard`
-
-2. **Update the base path** in `vite.config.js` to match your repository name:
-   ```javascript
-   base: process.env.NODE_ENV === 'production' ? '/weather-dashboard/' : '/',
-   ```
-
-3. **Initialize Git and push to GitHub:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Weather Dashboard"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/weather-dashboard.git
-   git push -u origin main
-   ```
-
-4. **Enable GitHub Pages:**
-   - Go to your repository settings
-   - Navigate to **Pages** section
-   - Under **Source**, select **GitHub Actions**
-
-5. **Automatic Deployment:**
-   - Every push to `main` branch will automatically trigger a deployment
-   - The GitHub Actions workflow will build and deploy your app
-   - Your site will be available at: `https://YOUR_USERNAME.github.io/weather-dashboard/`
-
-### Manual Deployment (Alternative)
-
-If you prefer manual deployment:
-```bash
-npm run deploy
-```
-
-This will build and deploy to the `gh-pages` branch.
-
-### Important Notes
-
-- The `.env` file is **NOT** committed to Git for security
-- For production, consider using environment variables in your GitHub repository secrets
-- The API key in `.env` is for development only
-
-
 ## 🛠️ Technologies Used
 
 - **React 18.2** - Modern UI library for building user interfaces
@@ -166,12 +73,6 @@ Edit the gradient colors in `src/App.css`:
 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 ```
 
-### API Configuration
-The OpenWeather API key is stored in `.env`:
-```
-VITE_OPENWEATHER_API_KEY=93279420fac1866de9d3ccecd3d664f1
-```
-
 ## 📱 Responsive Breakpoints
 
 - **Desktop**: 1200px and above
@@ -188,6 +89,7 @@ VITE_OPENWEATHER_API_KEY=93279420fac1866de9d3ccecd3d664f1
 **Issue**: Location not detected
 - Enable location permissions in your browser
 - Try searching for a city manually
+- The `.env` file is **NOT** committed to Git for security.
 
 ## 📄 License
 
