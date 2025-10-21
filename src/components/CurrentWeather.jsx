@@ -1,12 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const CurrentWeather = ({ data }) => {
-  const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
+  const [currentTime, setCurrentTime] = useState(new Date());
   
+  // Determine if it's day or night based on sunrise/sunset
+  const isDayTime = () => {
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    return currentTimestamp >= data.sys.sunrise && currentTimestamp < data.sys.sunset;
+  };
+
+  // Get the appropriate icon (day or night version)
+  const getWeatherIcon = () => {
+    let iconCode = data.weather[0].icon;
+    // Replace 'n' with 'd' for day icons, or 'd' with 'n' for night icons
+    if (isDayTime()) {
+      iconCode = iconCode.replace('n', 'd');
+    } else {
+      iconCode = iconCode.replace('d', 'n');
+    }
+    return `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+  };
+
+  const iconUrl = getWeatherIcon();
+  
+  useEffect(() => {
+    // Update time every second
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const formatTime = (timestamp) => {
     return new Date(timestamp * 1000).toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit'
+    });
+  };
+
+  const getLocalTime = () => {
+    // Calculate local time using timezone offset
+    const timezoneOffset = data.timezone; // in seconds
+    const localTime = new Date(currentTime.getTime() + timezoneOffset * 1000);
+    
+    return localTime.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true,
+      timeZone: 'UTC'
+    });
+  };
+
+  const getLocalDate = () => {
+    const timezoneOffset = data.timezone;
+    const localTime = new Date(currentTime.getTime() + timezoneOffset * 1000);
+    
+    return localTime.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC'
     });
   };
 
@@ -17,6 +73,10 @@ const CurrentWeather = ({ data }) => {
           <h2 className="location-name">
             {data.name}, {data.sys.country}
           </h2>
+          <p className="local-time">
+            <span className="time-icon">🕐</span> {getLocalTime()}
+          </p>
+          <p className="local-date">{getLocalDate()}</p>
           <p className="weather-description">
             {data.weather[0].description}
           </p>

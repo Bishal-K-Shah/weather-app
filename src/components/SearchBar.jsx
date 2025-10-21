@@ -12,7 +12,7 @@ function SearchBar({ onSearch, onUseLocation }) {
   const searchRef = useRef(null);
 
   useEffect(() => {
-    // Close suggestions when clicking outside
+    // Hide the dropdown if someone clicks outside of it
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowSuggestions(false);
@@ -24,7 +24,7 @@ function SearchBar({ onSearch, onUseLocation }) {
   }, []);
 
   useEffect(() => {
-    // Debounce the search to avoid too many API calls
+    // Wait a bit before searching so we don't spam the API
     const timer = setTimeout(() => {
       if (city.trim().length >= 2) {
         fetchSuggestions(city);

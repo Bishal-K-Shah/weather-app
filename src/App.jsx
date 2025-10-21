@@ -4,36 +4,37 @@ import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
 import WeatherChart from './components/WeatherChart';
 import SearchBar from './components/SearchBar';
+import WeatherBackground from './components/WeatherBackground';
 import './App.css';
 
-// API Key from environment variable only (secure approach)
+// Grab the API key from environment variables
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 function App() {
-  const [searchCity, setSearchCity] = useState('London');
+  const [searchCity, setSearchCity] = useState('Melbourne,AU');
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [themeOverride, setThemeOverride] = useState(null);
 
   useEffect(() => {
-    // Check if API key is configured
+    // Make sure the API key is set up before we try anything
     if (!API_KEY) {
       setError('⚠️ API key not configured. Please add VITE_OPENWEATHER_API_KEY to your .env file.');
       setLoading(false);
       return;
     }
 
-    // Try to get user's location on mount
-    // Try to get user's location on mount
+    // Try to get the user's location when the app loads
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
         },
         () => {
-          // If location access denied, fetch default city
+          // Fall back to Melbourne if they don't share their location
           fetchWeather(searchCity);
         }
       );
@@ -101,8 +102,30 @@ function App() {
     }
   };
 
+  const handleThemeChange = (theme) => {
+    setThemeOverride(theme);
+  };
+
+  const handleAutoTheme = () => {
+    setThemeOverride(null);
+  };
+
+  const weatherThemes = [
+    { id: 'clear', name: 'Clear', icon: '☀️', color: '#FFD700' },
+    { id: 'rain', name: 'Rain', icon: '🌧️', color: '#4a9eff' },
+    { id: 'snow', name: 'Snow', icon: '🌨️', color: '#ffffff' },
+    { id: 'thunderstorm', name: 'Storm', icon: '⛈️', color: '#1e3a5f' },
+    { id: 'clouds', name: 'Clouds', icon: '☁️', color: '#b0bec5' },
+    { id: 'drizzle', name: 'Drizzle', icon: '🌦️', color: '#6eb5ff' },
+    { id: 'mist', name: 'Mist', icon: '🌫️', color: '#aaaaaa' },
+    { id: 'fog', name: 'Fog', icon: '🌁', color: '#999999' },
+  ];
+
   return (
     <div className="app">
+      <WeatherBackground 
+        weatherCondition={themeOverride || currentWeather?.weather[0]?.main || 'clear'} 
+      />
       <div className="container">
         <header className="header">
           <h1 className="title">
@@ -138,8 +161,35 @@ function App() {
           </>
         )}
 
+        {/* Theme Override Controls */}
+        <div className="theme-selector">
+          <h3 className="theme-selector-title">Theme</h3>
+          <div className="theme-buttons">
+            <button
+              className={`theme-button ${themeOverride === null ? 'active' : ''}`}
+              onClick={handleAutoTheme}
+              title="Use current weather"
+            >
+              <span className="theme-icon">🔄</span>
+              <span className="theme-name">Auto</span>
+            </button>
+            {weatherThemes.map((theme) => (
+              <button
+                key={theme.id}
+                className={`theme-button ${themeOverride === theme.id ? 'active' : ''}`}
+                onClick={() => handleThemeChange(theme.id)}
+                style={{ '--theme-color': theme.color }}
+                title={`${theme.name} theme`}
+              >
+                <span className="theme-icon">{theme.icon}</span>
+                <span className="theme-name">{theme.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         <footer className="footer">
-          <p>Powered by OpenWeather API | Data updated every 3 hours</p>
+          <p>Developed by Bishal | Powered by OpenWeather API | Data updated every 3 hours</p>
         </footer>
       </div>
     </div>

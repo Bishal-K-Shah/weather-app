@@ -22,6 +22,11 @@ const Forecast = ({ data }) => {
     return Object.entries(daily).slice(0, 5);
   };
 
+  // Force day icon for forecast
+  const getDayIcon = (iconCode) => {
+    return iconCode.replace('n', 'd');
+  };
+
   const dailyForecasts = getDailyForecast();
 
   return (
@@ -32,7 +37,7 @@ const Forecast = ({ data }) => {
           <div key={day} className="forecast-card">
             <div className="forecast-day">{day}</div>
             <img 
-              src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${getDayIcon(forecast.weather[0].icon)}@2x.png`}
               alt={forecast.weather[0].description}
               className="forecast-icon"
             />

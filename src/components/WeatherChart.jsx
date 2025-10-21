@@ -42,32 +42,44 @@ const WeatherChart = ({ forecast }) => {
       {
         label: 'Temperature (°C)',
         data: temperatures,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+        borderColor: 'rgb(255, 107, 107)',
+        backgroundColor: 'rgba(255, 107, 107, 0.2)',
         tension: 0.4,
         fill: true,
-        pointRadius: 5,
-        pointHoverRadius: 7,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointBackgroundColor: 'rgb(255, 107, 107)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        borderWidth: 3,
       },
       {
         label: 'Feels Like (°C)',
         data: feelsLike,
-        borderColor: 'rgb(54, 162, 235)',
-        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+        borderColor: 'rgb(78, 205, 255)',
+        backgroundColor: 'rgba(78, 205, 255, 0.2)',
         tension: 0.4,
         fill: true,
-        pointRadius: 5,
-        pointHoverRadius: 7,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointBackgroundColor: 'rgb(78, 205, 255)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        borderWidth: 3,
       },
       {
         label: 'Humidity (%)',
         data: humidity,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+        borderColor: 'rgb(120, 255, 214)',
+        backgroundColor: 'rgba(120, 255, 214, 0.2)',
         tension: 0.4,
         fill: true,
-        pointRadius: 5,
-        pointHoverRadius: 7,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointBackgroundColor: 'rgb(120, 255, 214)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        borderWidth: 3,
         yAxisID: 'y1',
       }
     ],
@@ -89,7 +101,8 @@ const WeatherChart = ({ forecast }) => {
           font: {
             size: 12,
             family: "'Inter', sans-serif"
-          }
+          },
+          color: '#ffffff'
         }
       },
       title: {
@@ -100,10 +113,11 @@ const WeatherChart = ({ forecast }) => {
           weight: 'bold',
           family: "'Inter', sans-serif"
         },
-        padding: 20
+        padding: 20,
+        color: '#ffffff'
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
         padding: 12,
         titleFont: {
           size: 14
@@ -111,7 +125,9 @@ const WeatherChart = ({ forecast }) => {
         bodyFont: {
           size: 13
         },
-        cornerRadius: 8
+        cornerRadius: 8,
+        borderColor: 'rgba(255, 255, 255, 0.3)',
+        borderWidth: 1
       }
     },
     scales: {
@@ -125,10 +141,14 @@ const WeatherChart = ({ forecast }) => {
           font: {
             size: 12,
             weight: 'bold'
-          }
+          },
+          color: '#ffffff'
+        },
+        ticks: {
+          color: '#ffffff'
         },
         grid: {
-          color: 'rgba(0, 0, 0, 0.05)'
+          color: 'rgba(255, 255, 255, 0.15)'
         }
       },
       y1: {
@@ -141,7 +161,11 @@ const WeatherChart = ({ forecast }) => {
           font: {
             size: 12,
             weight: 'bold'
-          }
+          },
+          color: '#ffffff'
+        },
+        ticks: {
+          color: '#ffffff'
         },
         grid: {
           drawOnChartArea: false,
@@ -150,8 +174,11 @@ const WeatherChart = ({ forecast }) => {
         min: 0
       },
       x: {
+        ticks: {
+          color: '#ffffff'
+        },
         grid: {
-          color: 'rgba(0, 0, 0, 0.05)'
+          color: 'rgba(255, 255, 255, 0.15)'
         }
       }
     },
