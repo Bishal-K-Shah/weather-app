@@ -189,7 +189,7 @@ function App() {
         </div>
 
         <footer className="footer">
-          <p>Developed by Bishal | Powered by OpenWeather API | Data updated every 3 hours</p>
+          <p>Developed by Bishal Shah | Powered by OpenWeather API | Data updated every 3 hours</p>
         </footer>
       </div>
     </div>
